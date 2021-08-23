@@ -43,4 +43,4 @@ class HelloConan(ConanFile):
         self.copy("*.a", dst="lib", keep_path=False)
 
     def package_info(self):
-        self.cpp_info.libs = ["ip_converter"]
+        self.cpp_info.libs = ["ip_sort"]

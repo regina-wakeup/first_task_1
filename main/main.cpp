@@ -1,14 +1,15 @@
 #include "ip_converter.h"
 
 #include <iostream>
+#include <fstream>
 #include <sstream>
 
 using namespace std;
 using namespace ip_converter;
 
-int main(char * argc, char* argv[])
+int main(int argc, char* argv[])
 {
-    if (atoi(argc) < 2)
+    if (argc < 2)
     {
         cout << "Error: incorrect input - no file" << endl;
         return 1;
@@ -18,11 +19,11 @@ int main(char * argc, char* argv[])
     if (!file)
     {
         cout << "Error: Could not read input file!";
-        return nullopt;
+        return 1;
     }
 
-    if (auto collection = getIPAddresses(file))
-        printCollection(*collection);
+    if (auto collection = getIPAddresses(file); !collection.empty())
+        printCollection(collection);
 
     int t;
     cin >> t;
