@@ -7,9 +7,9 @@
 using namespace std;
 using namespace ip_converter;
 
-int main(char * argc, char* argv[])
+int main(int argc, char* argv[])
 {
-    if (atoi(argc) < 2)
+    if (argc < 2)
     {
         cout << "Error: incorrect input - no file" << endl;
         return 1;
