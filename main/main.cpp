@@ -1,6 +1,7 @@
 #include "ip_converter.h"
 
 #include <iostream>
+#include <fstream>
 #include <sstream>
 
 using namespace std;
@@ -18,11 +19,11 @@ int main(char * argc, char* argv[])
     if (!file)
     {
         cout << "Error: Could not read input file!";
-        return nullopt;
+        return 1;
     }
 
-    if (auto collection = getIPAddresses(file))
-        printCollection(*collection);
+    if (auto collection = getIPAddresses(file); !collection.empty())
+        printCollection(collection);
 
     int t;
     cin >> t;
