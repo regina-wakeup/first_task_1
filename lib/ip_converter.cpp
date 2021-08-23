@@ -47,43 +47,33 @@ ip_collection ip_converter::getIPAddresses(istream& inStream)
     return collection;
 }
 
-void ip_converter::printCollection(const ip_collection& collection)
+ostream& ip_converter::printCollection(ostream& out, const ip_collection& collection)
 {
-    for (auto ip : collection)
+    auto print = [&out](const ip_address& ip)
     {
-        for (auto id : ip)
-            cout << id << ".";
-
-        cout << endl;
-    }
+        for (auto idx = 0; idx < IP_ADDRESS_LENGTH; ++idx)
+        {
+            out << ip[idx];
+            if (idx != IP_ADDRESS_LENGTH - 1)
+                out << ".";
+        }
+        out << endl;
+    };
 
     for (auto ip : collection)
-    {
+        print(ip);
+
+    for (auto ip : collection)
         if (ip[0] == 1)
-        {
-            for (auto id : ip)
-                cout << id << ".";
-        }
-        cout << endl;
-    }
+            print(ip);
 
     for (auto ip : collection)
-    {
         if (ip[0] == 46 && ip[1] == 70)
-        {
-            for (auto id : ip)
-                cout << id << ".";
-        }
-        cout << endl;
-    }
+            print(ip);
 
     for (auto ip : collection)
-    {
         if (find(ip.begin(), ip.end(), 46) != ip.end())
-        {
-            for (auto id : ip)
-                cout << id << ".";
-        }
-        cout << endl;
-    }
+            print(ip);
+
+    return out;
 }

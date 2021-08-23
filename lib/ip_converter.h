@@ -18,5 +18,5 @@ namespace ip_converter
 
     ip_collection getIPAddresses(istream& inStream);
 
-    void printCollection(const ip_collection& collection);
+    ostream& printCollection(ostream& out, const ip_collection& collection);
 }
