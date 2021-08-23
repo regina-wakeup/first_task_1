@@ -26,5 +26,5 @@ jobs:
       run: conan config set general.revisions_enabled=1 && conan remote add otus_first_task https://broccoli.jfrog.io/artifactory/api/conan/fisrt_task-conan
 
     - name: Upload conan package
-      run: conan user -p ${{secrets.CONAN_PASSWORD}} ${{ secrets.CONAN_USERNAME }} -r otus_first_task &&
+      run: conan user -p ${{secrets.CONAN_PASSWORD}} -r otus_first_task ${{ secrets.CONAN_USERNAME }} &&
            conan upload --confirm ip_sort/0.*@broccoli/stable -r otus_first_task --all
