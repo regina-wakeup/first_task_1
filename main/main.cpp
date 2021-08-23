@@ -23,7 +23,7 @@ int main(int argc, char* argv[])
     }
 
     if (auto collection = getIPAddresses(file); !collection.empty())
-        printCollection(collection);
+        printCollection(cout, collection);
 
     int t;
     cin >> t;
