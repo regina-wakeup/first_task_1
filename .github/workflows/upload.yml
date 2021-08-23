@@ -1,0 +1,30 @@
+name: Upload
+
+on:
+  push:
+    tags:
+      - 0.*
+
+jobs:
+  build-linux:
+    # The CMake configure and build commands are platform agnostic and should work equally
+    # well on Windows or Mac.  You can convert this to a matrix build if you need
+    # cross-platform coverage.
+    # See: https://docs.github.com/en/free-pro-team@latest/actions/learn-github-actions/managing-complex-workflows#using-a-build-matrix
+    runs-on: ubuntu-20.04
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Install conan
+      run: pip3 install conan
+
+    - name: Build and test conan package
+      run: conan create . broccoli/stable
+
+    - name: Add remote artifactory
+      run: conan config set general.revisions_enabled=1 && conan remote add otus_first_task https://broccoli.jfrog.io/artifactory/api/conan/fisrt_task-conan
+
+    - name: Upload conan package
+      run: conan user -p ${{secrets.CONAN_PASSWORD}} -r otus_first_task ${{secrets.CONAN_USERNAME}} &&
+           conan upload --confirm ip_sort/0.*@broccoli/stable --all -r otus_first_task
